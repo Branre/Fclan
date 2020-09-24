@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClanTable extends Migration
+class CreateClanesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,19 @@ class CreateClanTable extends Migration
      */
     public function up()
     {
-        Schema::create('clan', function (Blueprint $table) {
+        Schema::create('clanes', function (Blueprint $table) {
             $table->Increments('clcodigo');
-            $table->timestamps();
-            $table->Integer('uscodigo');
+            $table->integer('uscodigo');
             $table->string('cltitulo');
             $table->string('cldescripcion');
             $table->string('clrequisitos');
-            $table->string('cledadminima');
-            $table->string('cledadmaxima');
+            $table->integer('cledadminima');
+            $table->integer('cledadmaxima');
             $table->string('clpais');
-            $table->string('cljuegos');
+            $table->string('cljuego');
             $table->string('clenlacediscord');
             $table->string('clenlacewhatsapp');
             $table->string('climagen');
-
         });
     }
 
@@ -38,6 +36,6 @@ class CreateClanTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clan');
+        Schema::dropIfExists('clanes');
     }
 }
