@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +11,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+//use Illuminate\Routing\Route;
+
+
+Route::get('/','PagesController@home');
+
+
+Route::group([
+    'prefix' => 'admin',
+    'namespace' => 'admin',
+     'middleware' => 'auth'], 
+     function () {
+    Route::get('/','AdminController@index')->name('admin');
+    Route::get('clanes','ClansController@index')->name('admin.clans.index');
+    Route::get('clanes/create','ClansController@create')->name('admin.clan.create');
+    Route::post('clanes','ClansController@store')->name('admin.clan.store');
 });
-Route::resource('usuarios', 'UsuariosController');
-Route::resource('clanes', 'ClanesController');
+
+Route::auth();
