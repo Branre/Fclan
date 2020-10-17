@@ -27,7 +27,11 @@ class ClansController extends Controller
     {
         $this->validate($request,
         ['titulo'=>'required',
-        'descripcion'=>'required'
+        'descripcion'=>'required',
+        'requisitos'=>'required',
+        'edadminima'=>'required',
+        'edadmaxima'=>'required',
+        'discord'=>'required',
     ]);
 
         $clan = new Clan;

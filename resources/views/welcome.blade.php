@@ -23,7 +23,7 @@
 				<p>{{ $clan->extracto }}</p>
 				<footer class="container-flex space-between">
 					<div class="read-more">
-						<a href="#" class="text-uppercase c-green">read more</a>
+						<a href="publicacion/{{ $clan->id }}" class="text-uppercase c-green">Leer más</a>
 					</div>
 					<div class="tags container-flex">
 					@foreach ($clan->pais as $pais )

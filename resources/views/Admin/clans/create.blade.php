@@ -32,11 +32,18 @@
         {!!  $errors->first('descripcion','<span class="help-block">:message</span>') !!}
 
         <label>Requisitos:</label><br>
-        <input name="requisitos" ></input><br>
+        <input name="requisitos" {{ $errors->has('requisitos') ? 'has-error': ''}}></input><br>
+        {!!  $errors->first('requisitos','<span class="help-block">:message</span>') !!}
+
         <label>Edad minima:</label><br>
-        <input type = "number" name="edadminima" ></input><br>
+        <input type = "number" name="edadminima" {{ $errors->has('edadminima') ? 'has-error': ''}} ></input><br>
+        {!!  $errors->first('edadminima','<span class="help-block">:message</span>') !!}
+
         <label>Edad máxima:</label><br>
-        <input type = "number" name="edadmaxima" ></input><br>
+        <input type = "number" name="edadmaxima" {{ $errors->has('edadmaxima') ? 'has-error': ''}}></input><br>
+        {!!  $errors->first('edadmaxima','<span class="help-block">:message</span>') !!}
+
+
         <label>Enlace Discord:</label><br>
         <input name="enlacediscord" placeholder="Aqui ingresa en enlace invitacion a tu Discord" ></input><br>
         <label>Enlace Whatsapp:</label><br>

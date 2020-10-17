@@ -15,7 +15,7 @@
 
 
 Route::get('/','PagesController@home');
-
+Route::get('publicacion/{id}','ClansController@show')->name('clans.show');
 
 Route::group([
     'prefix' => 'admin',
