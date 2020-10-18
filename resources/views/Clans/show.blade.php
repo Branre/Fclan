@@ -16,11 +16,6 @@
 {{ $juego->nombre}}
 @endforeach <h4>
 
-<h4>Juegos: 
-@foreach ($clan->juego as $juego )
-{{ $juego->nombre}}
-@endforeach <h4>
-
 <h4>Paises: 
 @foreach ($clan->pais as $pais )
 {{ $pais->nombre}}

@@ -34,7 +34,7 @@
                         <td>{{ $clan->titulo }}</td>
                         <td>{{ $clan->descripcion }}</td>
                         <td>
-                        <a href ="#" class='btn btn-xs btn-info'><i class="fa fa-pencil"></i></a>
+                        <a href ="{{ route('admin.clan.edit', $clan->id) }}" class='btn btn-xs btn-info'><i class="fa fa-pencil"></i></a>
                         <a href ="#" class='btn btn-xs btn-danger'><i class="fa fa-times"></i></a>
                         </td>
                       </tr>

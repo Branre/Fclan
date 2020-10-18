@@ -15,7 +15,7 @@
 
 
 Route::get('/','PagesController@home');
-Route::get('publicacion/{id}','ClansController@show')->name('clans.show');
+Route::get('publicacion/{clan}','ClansController@show')->name('clans.show');
 
 Route::group([
     'prefix' => 'admin',
@@ -26,6 +26,8 @@ Route::group([
     Route::get('clanes','ClansController@index')->name('admin.clans.index');
     Route::get('clanes/create','ClansController@create')->name('admin.clan.create');
     Route::post('clanes','ClansController@store')->name('admin.clan.store');
+    Route::get('clanes/edit/{id}','ClansController@edit')->name('admin.clan.edit');
+    Route::put('clanes/edit/{clan}','ClansController@update')->name('admin.clan.update');
 });
 
 Route::auth();
