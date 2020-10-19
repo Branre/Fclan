@@ -181,7 +181,7 @@ desired effect
               <!-- The user image in the navbar-->
               <img src="/adminlte/img/user2-160x160.jpg" class="user-image" alt="User Image">
               <!-- hidden-xs hides the username on small devices so only the image appears. -->
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"> {{ auth()->user()->name }}</span>
             </a>
             <ul class="dropdown-menu">
               <!-- The user image in the menu -->
@@ -189,10 +189,10 @@ desired effect
                 <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
-                  <small>Member since Nov. 2012</small>
+                  {{ auth()->user()->name }} - Web Developer
+                 
                 </p>
-              </li>
+              {{--  /li>
               <!-- Menu Body -->
               <li class="user-body">
                 <div class="row">
@@ -207,15 +207,14 @@ desired effect
                   </div>
                 </div>
                 <!-- /.row -->
-              </li>
+              </li>--}}
               <!-- Menu Footer-->
               <li class="user-footer">
-                <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
-                </div>
-                <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
-                </div>
+                <form method="POST" action="{{ route('logout') }}">
+                  {{csrf_field()}}
+
+                  <button href="#" class="btn btn-default btn-flat">Cerrar sesion</button>
+                </form>
               </li>
             </ul>
           </li>
@@ -385,6 +384,12 @@ desired effect
 <!-- AdminLTE App -->
 <script src="/adminlte/js/app.min.js"></script>
 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.0.1/min/dropzone.min.js"></script>
+
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.0.1/min/dropzone.min.css"></link>
+
+@stack('dropzone')
 <script>
   $(function () {
     $('#clans-table').DataTable({

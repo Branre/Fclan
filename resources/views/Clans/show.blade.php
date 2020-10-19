@@ -1,6 +1,9 @@
 @extends('layout')
 
 @section('content')
+@if($clan->photos->count()==1)
+			<figure><img src="{{ $clan->photos->first()->url }}" alt="" class="img-responsive"></figure>
+@endif
 <h2>{{ $clan->titulo }}</h2>
 <h5>Publicado: {{ $clan->published_at->diffForHumans() }}</h5>
 <h4>Descripcion: {{ $clan->descripcion }} </h4>

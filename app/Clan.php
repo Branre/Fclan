@@ -22,4 +22,7 @@ class Clan extends Model
     public function pais(){
         return $this->belongsToMany(Pais::class);
     }
+    public function photos(){
+        return $this->hasMany(Photo::class);
+    }
 }

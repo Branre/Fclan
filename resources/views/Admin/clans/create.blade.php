@@ -24,24 +24,24 @@
         <input name="id"  value="{{ Auth()->User()->id }}" readonly> </input><br>
 
         <label>Titulo de la publicacion:</label><br>
-        <input name="titulo" {{ $errors->has('titulo') ? 'has-error': ''}} ></input><br>
-        {!!  $errors->first('titulo','<span class="help-block">:message</span>') !!}
+        <input name="titulo"  ></input><br>
+        
         
         <label>Descripcion:</label><br>
-        <textarea name="descripcion" {{ $errors->has('descripcion') ? 'has-error': ''}}></textarea><br>
-        {!!  $errors->first('descripcion','<span class="help-block">:message</span>') !!}
+        <textarea name="descripcion" ></textarea><br>
+        
 
         <label>Requisitos:</label><br>
-        <input name="requisitos" {{ $errors->has('requisitos') ? 'has-error': ''}}></input><br>
-        {!!  $errors->first('requisitos','<span class="help-block">:message</span>') !!}
+        <input name="requisitos" ></input><br>
+      
 
         <label>Edad minima:</label><br>
-        <input type = "number" name="edadminima" {{ $errors->has('edadminima') ? 'has-error': ''}} ></input><br>
-        {!!  $errors->first('edadminima','<span class="help-block">:message</span>') !!}
+        <input type = "number" name="edadminima"  ></input><br>
+        
 
         <label>Edad máxima:</label><br>
-        <input type = "number" name="edadmaxima" {{ $errors->has('edadmaxima') ? 'has-error': ''}}></input><br>
-        {!!  $errors->first('edadmaxima','<span class="help-block">:message</span>') !!}
+        <input type = "number" name="edadmaxima" ></input><br>
+        
 
 
         <label>Enlace Discord:</label><br>
@@ -62,9 +62,31 @@
         </select><br>
         <label>Fecha:</label><br>
         <input type = 'date'  name="published_at" placeholder="" ></input><br>
+        <div class="dropzone"></div>
+        
         <button type = 'submit' value='PUT'>Guardar</button>
         
         </form>
     </div>
 </div>
 @stop
+@push('dropzone')
+<script>
+var myDropzone = new Dropzone('.dropzone',{
+    url: '/',
+    acceptedFiles: 'image/*',
+    maxFilesize: 2,
+    maxFiles: 1,
+    headers: {
+        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+    },
+    dictDefaultMessage: 'Arrastra las imagenes aqui'
+})
+myDropzone.on('error',function(file,res){
+    var msg=(res.photo[0]);
+    $('.db-error-message > span').text(msg);
+});
+
+Dropzone.autoDiscorver = false;
+</script>
+@endpush

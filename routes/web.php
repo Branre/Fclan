@@ -16,6 +16,8 @@
 
 Route::get('/','PagesController@home');
 Route::get('publicacion/{clan}','ClansController@show')->name('clans.show');
+Route::get('juegos/{juego}','JuegosController@show')->name('juegos.show');
+
 
 Route::group([
     'prefix' => 'admin',
@@ -26,8 +28,12 @@ Route::group([
     Route::get('clanes','ClansController@index')->name('admin.clans.index');
     Route::get('clanes/create','ClansController@create')->name('admin.clan.create');
     Route::post('clanes','ClansController@store')->name('admin.clan.store');
-    Route::get('clanes/edit/{id}','ClansController@edit')->name('admin.clan.edit');
-    Route::put('clanes/edit/{clan}','ClansController@update')->name('admin.clan.update');
+    Route::get('clanes/{clan}','ClansController@edit')->name('admin.clan.edit');
+    Route::put('clanes/{clan}','ClansController@update')->name('admin.clan.update');
+    Route::delete('clans/{clan}','ClansController@destroy')->name('admin.clan.destroy');
+
+    Route::post('clanes/{clan}/photos','PhotosController@store')->name('clan.photos.store');
+    Route::delete('photos/{photo}','PhotosController@destroy')->name('clan.photos.destroy');
 });
 
 Route::auth();

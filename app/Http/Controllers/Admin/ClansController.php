@@ -14,17 +14,20 @@ class ClansController extends Controller
     //
     public function index()
     {
-        $clans = Clan::all();
+
+        $clans = auth()->user()->clans;
         return view ('admin.clans.index',compact('clans'));
     }
     public function create()
     {
+        $this->authorize('create',new Clan);
         $juegos = Juego::all();
         $pais = Pais::all();
         return view ('admin.clans.create',compact(['juegos','pais']));
     }
     public function store(Request $request)
     {
+        /*
         $this->validate($request,
         ['titulo'=>'required',
         'descripcion'=>'required',
@@ -32,7 +35,7 @@ class ClansController extends Controller
         'edadminima'=>'required',
         'edadmaxima'=>'required',
         'discord'=>'required',
-    ]);
+    ]);*/
 
         $clan = new Clan;
         $clan->user_id= $request->get('id');
@@ -49,14 +52,16 @@ class ClansController extends Controller
         $clan->juego()->attach($request->get('juego'));
         $clan->pais()->attach($request->get('pais'));
 
+        return redirect()->route('admin.clan.edit',$clan);
 
     }
-    public function edit($id){
+    public function edit(Clan $clan){
 
-        $clan = Clan::findOrFail($id);
+        $this->authorize('view',$clan);
+
         $juegos = Juego::all();
         $pais = Pais::all();
-        return view('Admin.clans.edit',compact(['clan','juegos','pais']));
+        return view('Admin.clans.edit',compact(['juegos','pais','clan']));
     }
     public function update(Clan $clan,Request $request){
         
@@ -68,6 +73,10 @@ class ClansController extends Controller
         'edadmaxima'=>'required',
         'discord'=>'required',
     ]);
+    */
+     $this->authorize('update',$clan);
+
+
         $clan->user_id= $request->get('id');
         $clan->titulo= $request->get('titulo');
         $clan->descripcion= $request->get('descripcion');
@@ -81,7 +90,21 @@ class ClansController extends Controller
 
         $clan->juego()->sync($request->get('juego'));
         $clan->pais()->sync($request->get('pais'));
-        */
-        return $clan;
+
+        return redirect()->route('admin.clans.index');
+    }
+    public function destroy(Clan $clan){
+
+        $this->authorize('delete',$clan);
+       
+        $clan->juego()->detach();
+        
+        $clan->pais()->detach();
+
+        $clan->photos->each->delete();
+
+        $clan->delete();
+
+        return redirect()->route('admin.clans.index');
     }
 }

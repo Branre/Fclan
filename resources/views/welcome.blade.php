@@ -2,11 +2,24 @@
 
 @section('content')
 
+@if(isset($titulo))
+	<h3>Clanes que operan en: {{ $juego->nombre }}</h3>
+@endif
 
 @foreach ($clans as $clan )
     
 	<section class="posts container">
 		<article class="post no-image">
+		@if($clan->photos->count()==1)
+			<figure><img src="{{ $clan->photos->first()->url }}" alt="" class="img-responsive"></figure>
+		@elseif($clan->photos->count()>1)				
+				<div class="gallery-photos" data-masonry='{"itemSelector": ".grid-item", "columnWidth": 564 }'>
+				@foreach ( $clan->photos as $photo)
+				<figure class="grid-item grid-item--height2">
+				<img src="{{ url($photo->url) }}" class="img-responsive" alt=""></figure>			
+				@endforeach			
+				</div>
+		@endif
 			<div class="content-post">
 				<header class="container-flex space-between">
 					<div class="date">
@@ -14,7 +27,9 @@
 					</div>
 					<div class="tags container-flex">
 						@foreach ($clan->juego as $juego )
-						<span class="tag c-gray-1 text-capitalize">{{ $juego->nombre}}</span>
+						<span class="tag c-gray-1 text-capitalize">
+						<a href="{{ route('juegos.show',$juego) }}">
+						{{ $juego->nombre}}</a></span>
 						@endforeach
 					</div>
 				</header>
@@ -238,6 +253,7 @@
 	</section><!-- fin del div.posts.container -->
     @endforeach
 
+	{{ $clans->links() }}
 	<div class="pagination">
 		<ul class="list-unstyled container-flex space-center">
 			<li><a href="#" class="pagination-active">1</a></li>
