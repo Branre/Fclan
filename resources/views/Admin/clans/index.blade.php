@@ -35,8 +35,8 @@
                         <td>{{ $clan->descripcion }}</td>
                         <td>
                          <a href ="{{ route('clans.show', $clan) }}" class='btn btn-xs btn-success' target="_blank"><i class="fa fa-eye"></i></a>
-                        <a href ="{{ route('admin.clan.edit', $clan) }}" class='btn btn-xs btn-info'><i class="fa fa-pencil"></i></a>
-                        <form method="POST" action="{{ route('admin.clan.destroy',$clan) }}" style="display: inline">
+                        <a href ="{{ route('admin.clans.edit', $clan) }}" class='btn btn-xs btn-info'><i class="fa fa-pencil"></i></a>
+                        <form method="POST" action="{{ route('admin.clans.destroy',$clan) }}" style="display: inline">
                         {{ csrf_field() }}{{ method_field('DELETE') }}
                             <button class='btn btn-xs btn-danger'
                             onclick="return confirm('Estas seguro de querer eliminar este clan?')">

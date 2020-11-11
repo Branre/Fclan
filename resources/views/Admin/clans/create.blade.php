@@ -14,79 +14,94 @@
 @stop
 @section('content')
 <div class="row">
-    <div class= "box">
+  <div class= "box box-white">
         <div class= "box-header">
         <h3>Crear una publicacion</h3>
         </div>
-        <form method="POST" action="{{ route('admin.clan.store') }}">
-        {{ csrf_field() }}
-        <label>ID de Usuario</label><br>
-        <input name="id"  value="{{ Auth()->User()->id }}" readonly> </input><br>
+        <div>
+          <form method="POST" action="{{ route('admin.clans.store') }}">
+          
+            {{ csrf_field() }}
+            {{-- <label>ID de Usuario</label><br> --}} 
+            <input hidden name="id"  value="{{ Auth()->User()->id }}" readonly> </input><br>
+            <div class="box-body">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Titulo de la publicacion:</label><br>
+                  <input type="text" name="titulo" class="form-control" rows="1" ><br>
+                </div>
+                <div class="form-group">
+                  <label>Descripcion:</label><br>
+                  <textarea name="descripcion" class="form-control" ></textarea><br>
+                </div> 
+                <div class="form-group">
+                  <label>Requisitos:</label><br>
+                  <textarea name="requisitos" class="form-control" rows="1" ></textarea></input><br>
+                </div>
+                <div class="form-group">
+                  <label>Edad minima:</label><br>
+                  <input type = "number" name="edadminima" class="form-control" ></input><br>
+                </div>
+                <div class="form-group">
+                  <label>Edad máxima:</label><br>
+                  <input type = "number" name="edadmaxima" class="form-control"></input><br>
+                </div>
+            
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Paises:</label>
+                  <select name="pais[]" class="form-control select2" multiple="multiple" data-placeholder="Selecciona uno o mas paises" style="width: 100%;">
+                    @foreach ($pais as $pai)
+                        <option value="{{ $pai->id }}">{{ $pai->nombre }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                <label>Juegos:</label>
+                  <select name="juego[]" class="form-control select2" multiple="multiple" data-placeholder="Selecciona uno o mas paises" style="width: 100%;">
+                    @foreach ($juegos as $juego)
+                        <option value="{{ $juego->id }}">{{ $juego->nombre }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label>Enlace Discord:</label><br>
+                  <input type="text" name="enlacediscord" placeholder="Aqui ingresa en enlace invitacion a tu Discord" class="form-control"></input><br>
+                </div>
+                <div class="form-group">
+                  <label>Enlace Whatsapp:</label><br>
+                <input type="text" name="enlacewhatsapp" placeholder="Aqui ingresa en enlace invitacion a tu grupo the WhatsApp" class="form-control"></input><br>
+                </div>
+               
+                
+        
+        
+                
+                
+             
+                {{--  
+                <label>Fecha:</label><br>
+                <input type = 'date'  name="published_at" placeholder="" ></input><br>--}}
+        
+                
+                <button type = 'submit' class="btn btn-primary" value='PUT'>Continuar</button>
+              </div>
 
-        <label>Titulo de la publicacion:</label><br>
-        <input name="titulo"  ></input><br>
+            </form>
+        </div>
         
-        
-        <label>Descripcion:</label><br>
-        <textarea name="descripcion" ></textarea><br>
-        
-
-        <label>Requisitos:</label><br>
-        <input name="requisitos" ></input><br>
-      
-
-        <label>Edad minima:</label><br>
-        <input type = "number" name="edadminima"  ></input><br>
-        
-
-        <label>Edad máxima:</label><br>
-        <input type = "number" name="edadmaxima" ></input><br>
-        
-
-
-        <label>Enlace Discord:</label><br>
-        <input name="enlacediscord" placeholder="Aqui ingresa en enlace invitacion a tu Discord" ></input><br>
-        <label>Enlace Whatsapp:</label><br>
-        <input name="enlacewhatsapp" placeholder="Aqui ingresa en enlace invitacion a tu grupo the WhatsApp" ></input><br>
-        <label>Selecciona los juegos en los cuales opera tu clan:</label><br>
-        <select name= "juego[]" multiple><br>
-        @foreach ($juegos as $juego )
-            <option value="{{ $juego->id }}">{{ $juego->nombre }}</option>
-        @endforeach
-        </select><br>
-        <label>Selecciona los paises en los cuales opera tu clan:</label><br>
-        <select name= "pais[]" multiple><br>
-        @foreach ($pais as $pai )
-            <option value="{{ $pai->id }}">{{ $pai->nombre }}</option>
-        @endforeach
-        </select><br>
-        <label>Fecha:</label><br>
-        <input type = 'date'  name="published_at" placeholder="" ></input><br>
-        <div class="dropzone"></div>
-        
-        <button type = 'submit' value='PUT'>Guardar</button>
-        
-        </form>
-    </div>
+  </div>
 </div>
-@stop
-@push('dropzone')
-<script>
-var myDropzone = new Dropzone('.dropzone',{
-    url: '/',
-    acceptedFiles: 'image/*',
-    maxFilesize: 2,
-    maxFiles: 1,
-    headers: {
-        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-    },
-    dictDefaultMessage: 'Arrastra las imagenes aqui'
-})
-myDropzone.on('error',function(file,res){
-    var msg=(res.photo[0]);
-    $('.db-error-message > span').text(msg);
-});
 
-Dropzone.autoDiscorver = false;
+@stop
+<link rel="stylesheet" href="/adminlte/plugins/select2/select2.min.css">
+
+@push('scripts')
+<script src="/adminlte/plugins/select2/select2.full.min.js"></script>}
+
+<script>
+ $('.select2').select2();
 </script>
 @endpush

@@ -2,25 +2,28 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Clan;
 use App\Juego;
 use App\Pais;
+use App\User;
+use App\Photo;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class ClansController extends Controller
 {
     //
     public function index()
     {
+        
+        $clans = Clan::allowed()->get();
 
-        $clans = auth()->user()->clans;
         return view ('admin.clans.index',compact('clans'));
     }
     public function create()
     {
-        $this->authorize('create',new Clan);
+        //$this->authorize('create',new Clan);
         $juegos = Juego::all();
         $pais = Pais::all();
         return view ('admin.clans.create',compact(['juegos','pais']));
@@ -46,24 +49,27 @@ class ClansController extends Controller
         $clan->edadmaxima= $request->get('edadmaxima');
         $clan->discord= $request->get('enlacediscord');
         $clan->whatsapp= $request->get('enlacewhatsapp');
-        $clan->published_at=Carbon::parse($request->get('published_at'));
+        $clan->published_at=Carbon::parse($request->get('created_at'));
         $clan->save();
 
         $clan->juego()->attach($request->get('juego'));
         $clan->pais()->attach($request->get('pais'));
 
-        return redirect()->route('admin.clan.edit',$clan);
+        return redirect()->route('admin.clans.edit',$clan);
 
     }
     public function edit(Clan $clan){
 
-        $this->authorize('view',$clan);
-
+      //  if(auth()->user()->id != 1){
+      //      $this->authorize('view',$clan);  
+      //  }     
+        
+        $this->authorize('view',$clan);  
         $juegos = Juego::all();
         $pais = Pais::all();
         return view('Admin.clans.edit',compact(['juegos','pais','clan']));
     }
-    public function update(Clan $clan,Request $request){
+    public function update(Clan $clan, Request $request){
         
     /*    $this->validate($request,
         ['titulo'=>'required',
@@ -74,7 +80,11 @@ class ClansController extends Controller
         'discord'=>'required',
     ]);
     */
-     $this->authorize('update',$clan);
+    
+  //  if(auth()->user()->id != 1){
+    //    $this->authorize('update',$clan);  
+    //}  
+     
 
 
         $clan->user_id= $request->get('id');
@@ -95,7 +105,10 @@ class ClansController extends Controller
     }
     public function destroy(Clan $clan){
 
-        $this->authorize('delete',$clan);
+        if(auth()->user()->id != 1){
+            $this->authorize('delete',$clan);  
+        }  
+        
        
         $clan->juego()->detach();
         

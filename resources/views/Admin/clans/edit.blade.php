@@ -1,4 +1,3 @@
-
 @extends('Admin.layout')
 @section('header')
  <h1>
@@ -14,80 +13,117 @@
 @stop
 @section('content')
 <div class="row">
-    <div class= "box">
+  <div class= "box box-white">
         <div class= "box-header">
         <h3>Crear una publicacion</h3>
         </div>
-        <form method="POST" action="{{ route('admin.clan.update',$clan) }}">
-        {{ csrf_field() }}
-        {{ method_field('PUT') }}
-        <label>ID de Usuario</label><br>
-        <input name="id"  value="{{ $clan->user_id }}" readonly> </input><br>
+        <div>
+        <form method="POST" action="{{ route('admin.clans.update',$clan) }}">
+            
+            {{ csrf_field() }}
+            {{ method_field('PUT') }}
+            {{-- <label>ID de Usuario</label><br> --}} 
+            <input hidden name="id"  value="{{ Auth()->User()->id }}" readonly> </input><br>
+            <div class="box-body">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Titulo de la publicacion:</label><br>
+                  <input type="text" name="titulo" class="form-control" rows="1" value="{{ $clan->titulo }}"><br>
+                </div>
+                <div class="form-group">
+                  <label>Descripcion:</label><br>
+                  <textarea name="descripcion" class="form-control" value="{{ $clan->descripcion }}">{{ $clan->descripcion }}</textarea><br>
+                </div> 
+                <div class="form-group">
+                  <label>Requisitos:</label><br>
+                  <textarea name="requisitos" class="form-control" rows="1" >{{ $clan->descripcion }}</textarea></input><br>
+                </div>
+                <div class="form-group">
+                  <label>Edad minima:</label><br>
+                  <input type = "number" name="edadminima" class="form-control" value="{{ $clan->edadminima }}"></input><br>
+                </div>
+                <div class="form-group">
+                  <label>Edad máxima:</label><br>
+                  <input type = "number" name="edadmaxima" class="form-control" value="{{ $clan->edadmaxima }}"></input><br>
+                </div>
+            
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Paises:</label>
+                  <select name="pais[]" class="form-control select2" multiple="multiple" data-placeholder="Selecciona uno o mas paises" style="width: 100%;">
+                    @foreach ($pais as $pai)
+                        <option {{ collect(old('pais',$clan->pais->pluck('id')))->contains($pai->id) ? 'selected': '' }} value="{{ $pai->id }}">{{ $pai->nombre }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                <div class="form-group">
+                <label>Juegos:</label>
+                  <select name="juego[]" class="form-control select2" multiple="multiple" data-placeholder="Selecciona uno o mas paises" style="width: 100%;">
+                    @foreach ($juegos as $juego)
+                        <option {{ collect(old('juegos',$clan->juego->pluck('id')))->contains($juego->id) ? 'selected': '' }} value="{{ $juego->id }}">{{ $juego->nombre }}</option>
+                    @endforeach
+                  </select>
+                </div>
+                
+                <div class="form-group">
+                  <label>Enlace Discord:</label><br>
+                  <input type="text" name="enlacediscord" placeholder="Aqui ingresa en enlace invitacion a tu Discord" class="form-control" value="{{ $clan->discord }}"></input><br>
+                </div>
+                <div class="form-group">
+                  <label>Enlace Whatsapp:</label><br>
+                <input type="text" name="enlacewhatsapp" placeholder="Aqui ingresa en enlace invitacion a tu grupo the WhatsApp" class="form-control" value="{{ $clan->whatsapp }}" ></input><br>
+                </div>
+               
+                
+                
+                <div class="dropzone">
 
-        <label>Titulo de la publicacion:</label><br>
-        <input name="titulo"  value={{ $clan->titulo }}></input><br>
+                </div>
+                
+                
+             
+                {{--  
+                <label>Fecha:</label><br>
+                <input type = 'date'  name="published_at" placeholder="" ></input><br>--}}
         
+                
+                <button type = 'submit' class="btn btn-primary" value='PUT'>Continuar</button>
+              </div>
+
+            </form>
+            
+        </div>
+        <div class="forum box-group" >
+            @foreach ( $clan->photos as $photo)
+            <form method="POST" action="{{ route('clan.photos.destroy',$photo)}}">
+                {{ method_field('DELETE') }}{{ csrf_field() }}
+                    <div class="col-md-2">
+                    <button class="btn btn-danger btn-xs" style="position: absolute" >
+                        <i class='fa fa-remove'></i>
+                    </button>         
+                    <img  class="img-responsive" src="{{ url($photo->url) }}" >
+                    </div>
+            </form>	
+            @endforeach			
+        </div>
         
-        <label>Descripcion:</label><br>
-        <textarea name="descripcion" >{{ $clan->descripcion }}</textarea><br>
-        
+  </div>
+  
+</div>
 
-        <label>Requisitos:</label><br>
-        <input name="requisitos" value={{ $clan->requisitos }}></input><br>
-      
-
-        <label>Edad minima:</label><br>
-        <input type = "number" name="edadminima"  value={{ $clan->edadminima }}></input><br>
-        
-
-        <label>Edad máxima:</label><br>
-        <input type = "number" name="edadmaxima" value={{ $clan->edadmaxima }}></input><br>
-        
-
-
-        <label>Enlace Discord:</label><br>
-        <input name="enlacediscord" placeholder="Aqui ingresa en enlace invitacion a tu Discord" value={{ $clan->discord }}></input><br>
-        <label>Enlace Whatsapp:</label><br>
-        <input name="enlacewhatsapp" placeholder="Aqui ingresa en enlace invitacion a tu grupo the WhatsApp" value={{ $clan->whatsapp }}></input><br>
-        <label>Selecciona los juegos en los cuales opera tu clan:</label><br>
-        <select name= "juego[]" multiple><br>
-        @foreach ($juegos as $juego )
-            <option value="{{ $juego->id }}">{{ $juego->nombre }}</option>
-        @endforeach
-        </select><br>
-        <label>Selecciona los paises en los cuales opera tu clan:</label><br>
-        <select name= "pais[]" multiple><br>
-        @foreach ($pais as $pai )
-            <option value="{{ $pai->id }}">{{ $pai->nombre }}</option>
-        @endforeach
-        </select><br>
-        <label>Fecha:</label><br>
-        <input type = 'date'  name="published_at" placeholder="" value={{ $clan->published_at}} ></input><br>
-        <div class="dropzone"></div>
-        <button type = 'submit' value='PUT'>Guardar</button>
-        
-        
-        </form>
-
-            </div>
-    </div>
-                <div class="row" >
-				@foreach ( $clan->photos as $photo)
-				<form method="POST" action="{{ route('clan.photos.destroy',$photo)}}">
-                    {{ method_field('DELETE') }}{{ csrf_field() }}
-
-                        <div class="col-md-2">
-                        <button class="btn btn-danger btn-xs" style="position: absolute" >
-                            <i class='fa fa-remove'></i>
-                        </button>         
-				        <img  class="img-responsive" src="{{ url($photo->url) }}" >
-                        </div>
-	
-                </form>	
-				@endforeach			
-				</div>
 
 @stop
+<link rel="stylesheet" href="/adminlte/plugins/select2/select2.min.css">
+
+@push('scripts')
+<script src="/adminlte/plugins/select2/select2.full.min.js"></script>}
+
+<script>
+ $('.select2').select2();
+</script>
+@endpush
+
 @push('dropzone')
 <script>
 var myDropzone = new Dropzone('.dropzone',{
@@ -95,7 +131,7 @@ var myDropzone = new Dropzone('.dropzone',{
         paramName: 'photo',
     acceptedFiles: 'image/*',
     maxFilesize: 2,
-    maxFiles: 5,
+    maxFiles: 4,
     headers: {
         'X-CSRF-TOKEN': '{{ csrf_token() }}'
     },

@@ -25,4 +25,10 @@ class Clan extends Model
     public function photos(){
         return $this->hasMany(Photo::class);
     }
+    public function scopeAllowed($query){
+        if(auth()->user()->hasRole('Admin')){
+            return $query;
+        }
+        return $query->where('user_id', auth()->id()); 
+    }
 }

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Clan;
+use Illuminate\Http\Request;
 
 class PagesController extends Controller
 {
@@ -12,5 +12,9 @@ class PagesController extends Controller
         $clans = Clan::latest('published_at')->paginate(2);
 
         return view('welcome',compact('clans'));
+    }
+    public function spa(){
+        $clans = Clan::latest('published_at')->paginate(2);
+        return view('pages.spa',compact('clans'));
     }
 }
