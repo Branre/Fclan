@@ -78,7 +78,7 @@
                 </div>
                 <div class="form-group">
                   <label>Enlace Whatsapp:</label><br>
-                <input type="text" name="enlacewhatsapp" placeholder="Aqui ingresa en enlace invitacion a tu grupo the WhatsApp" class="form-control"></input><br>
+                <input type="text" name="whatsapp" placeholder="Aqui ingresa en enlace invitacion a tu grupo the WhatsApp" class="form-control"></input><br>
                 </div>
                
                 

@@ -65,7 +65,7 @@ desired effect
     <!-- Logo -->
     <a href="index2.html" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>LT</span>
+      {{-- <spanclass="logo-mini"><b>A</b>LT</span> --}}
       <!-- logo for regular state and mobile devices -->
    
     </a>
@@ -89,7 +89,7 @@ desired effect
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="/adminlte/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="/adminlte/img/discord.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p>{{ auth()->user()->name }}</p>
@@ -141,11 +141,11 @@ desired effect
   <!-- Main Footer -->
   <footer class="main-footer">
     <!-- To the right -->
-    <div class="pull-right hidden-xs">
+   {{-- <div class="pull-right hidden-xs">
       Anything you want
-    </div>
+    </div>--}}
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2016 <a href="#">Company</a>.</strong> All rights reserved.
+    {{-- <strong>Copyright&copy;2016<ahref="#">Company</a>.</strong>Allrightsreserved. --}}
   </footer>
 
   <!-- Control Sidebar -->

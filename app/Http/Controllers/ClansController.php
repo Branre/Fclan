@@ -10,7 +10,9 @@ class ClansController extends Controller
     //
     public function show(Clan $clan)
     {
-
+        if(request()->wantsJson()){
+            return $clan;
+        }
         return view('clans.show',compact(['clan']));
     }
 }

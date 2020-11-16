@@ -25,7 +25,7 @@ class PhotosController extends Controller
             'clan_id'=>$clan->id
         ]);
     } 
-    public function destroy(Photo $photo)
+    public function destroy(Photo $photo, Clan $clan)
     {
         $photo->delete();
 

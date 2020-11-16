@@ -10,6 +10,7 @@ class AdminController extends Controller
     //
     public function index()
     {
-        return view('admin.panelDeControl');
+        return redirect()->route('admin.clans.index');
+        
     }
 }

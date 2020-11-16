@@ -3,19 +3,26 @@
 		<section >
 
 
-        <section v-for="clan in clans" class="posts container">
+        <section v-for="clan in clans" class="posts container" :key="clan">
 		<article  class="post">
             
 				
 		
 		<div class="content-post">
 			
+		<!--<carousel>
+				<carousel-slide v-for="photo in clan.photos" class="carousel-slider" >
+				<img :src="photo.url" >
+				</carousel-slide>
+		</carousel>-->
+			
+			
 			<div  class="gallery-photos" data-masonry='{"itemSelector": ".grid-item", "columnWidth": 464 }'>
-			<div v-for="photo in clan.photos.slice(0, 3)">
+			<div v-for="photo in clan.photos.slice(0, 3)" :key="photo">
 				<figure bind:class="grid-item grid-item--height2">
 				<img class="img-responsive" :src="photo.url"></figure>		
 			</div>		
-		</div>
+			</div>
 			<header class="container-flex space-between">
 					<div class="date">
 						<span class="c-gray-1">{{ clan.published_dat }}</span>
@@ -30,17 +37,17 @@
 				<p v-text="clan.descripcion"></p>
 				<footer class="container-flex space-between">
 					<div class="read-more">
-						<router-link href="#" class="text-uppercase c-green">Ver mas</router-link>
+						<router-link :to="{name:'clans_show', params:{id:clan.id}}" class="text-uppercase c-green">Ver mas</router-link>
 					</div>						
 				</footer>
 				<br>
 				<div class="tags container-flex">
-					<span class="tag c-gray-1 text-capitalize" v-for="juego in clan.juego">
+					<span class="tag c-gray-1 text-capitalize" v-for="juego in clan.juego" :key="juego">
 					<a href="#">
 					{{ juego.nombre}} </a></span>
 				</div><br>
 				<div class="tags container-flex">
-					<span class="tag c-gray-1 text-capitalize" v-for="pais in clan.pais">
+					<span class="tag c-gray-1 text-capitalize" v-for="pais in clan.pais" :key="pais">
 					<a href="#">
 					{{ pais.nombre}} </a></span>
 				</div>		
@@ -50,7 +57,11 @@
 			</section>
 </section>
 </template>
+
 <script>
+/*
+import Carousel from './components/carousel/Carousel';
+import CarouselSlide from './components/carousel/CarouselSlide';*/
 export default {
 	data(){
 		return{
@@ -66,19 +77,67 @@ export default {
 			console.log(err);
 		});
 	}
+		/*
+	,components : {
+        Carousel : Carousel,
+        CarouselSlide : CarouselSlide,
+    }*/
 }
+	
+	
 </script>
+
+<!--
 <style>
-  .example-slide {
-    align-items: center;
-    background-color: #666;
-    color: #999;
-    display: flex;
-    font-size: 1.5rem;
-    justify-content: center;
-    min-height: 10rem;
-  }
-</style>
+    .app {
+        display:flex;
+        justify-content: center;
+    }
+    .carousel {
+        position:relative;
+        overflow: hidden;
+        width:800px;
+        height:500px;
+        z-index:10;
+    }
+    .btn {
+        padding:5px 10px;
+        background-color:rgba(0,0,0,0.5);
+        border:1px solid transparent;
+        margin:5px 10px;
+        color:#FFF;
+        height:50px;
+        width:50px;
+        position:absolute;
+        margin-top:-25px;
+        z-index:2;
+    }
+    .btn:hover {
+        cursor: pointer;
+    }
+    .btn:focus{
+        outline:none;
+    }
+    .btn-next {
+        top:50%;
+        right:0;
+    }
+    .btn-prev {
+        top:50%;
+        left:0;
+    }
+    .carousel-slider {
+        position:absolute;
+        top:0;
+        left:0;
+        bottom:0;
+        right:0;
+    }
+    .carousel-slider img {
+        width:100%;
+        height:100%;
+    }
+</style>-->
 <!--
 				<figure v-for="photo in clan.photos.slice(0, 4)"  class="grid-item grid-item--height2">
 				<img :src="photo.url" class="img-responsive" alt=""></figure>			-->

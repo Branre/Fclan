@@ -48,7 +48,7 @@ class ClansController extends Controller
         $clan->edadminima= $request->get('edadminima');
         $clan->edadmaxima= $request->get('edadmaxima');
         $clan->discord= $request->get('discord');
-        $clan->whatsapp= $request->get('enlacewhatsapp');
+        $clan->whatsapp= $request->get('whatsapp');
         $clan->published_at=Carbon::parse($request->get('created_at'));
         $clan->save();
 
@@ -86,8 +86,8 @@ class ClansController extends Controller
         $clan->requisitos= $request->get('requisitos');
         $clan->edadminima= $request->get('edadminima');
         $clan->edadmaxima= $request->get('edadmaxima');
-        $clan->discord= $request->get('enlacediscord');
-        $clan->whatsapp= $request->get('enlacewhatsapp');
+        $clan->discord= $request->get('discord');
+        $clan->whatsapp= $request->get('whatsapp');
         $clan->published_at=Carbon::parse($request->get('published_at'));
         $clan->save();
 

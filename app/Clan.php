@@ -48,4 +48,8 @@ class Clan extends Model
     public function getImageAttribute(){
         return $this->photos;
     }
+    public function getRouteKeyName()
+    {
+        return 'id';
+    }
 }

@@ -13,9 +13,30 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
 	<style>
 		.router-link-exact-active{
 			color: #78A2D2 ;
+		}
+
+		.fade-enter-active, .fade-leave-active {
+  		transition: opacity .5s;
+		}
+		.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  		opacity: 0;
+		}
+		.slide-fade-enter-active {
+  		transition: all .3s ease;
+		}
+		.slide-fade-leave-active {
+ 		 transition: all .6s cubic-bezier(.17, .67, .83, .67);
+		}	
+		.slide-fade-enter, .slide-fade-leave-to
+		/* .slide-fade-leave-active below version 2.1.8 */ {
+  		transform: translateY(800px);
+  		opacity: 0;
 		}
 	</style>
 </head>
@@ -30,15 +51,18 @@
 						<li><router-link to="/" class="text-uppercase">Inicio</router-link></li>						
 						<li><router-link to="/nosotros" class="text-uppercase">Nosotros</router-link></li>
 						<li><router-link to="/contacto" class="text-uppercase">Contacto</router-link></li>
-						<li><a to="/" class="text-uppercase">Mi usuario</a></li>
+						<li><a href="/admin" class="text-uppercase">{{ auth()->user() ? 'Mi usuario': 'Ingresar' }}</a></li>
 					</ul>
 				</nav>
 			</div>
 		</header>
 
-		<router-view></router-view>
-
-
+		<div style="min-height: 100vh">
+			<transition name="fade" mode="out-in">
+			<router-view></router-view>
+			</transition>
+		</div>
+		
 <section class="footer">
 	<footer>
 

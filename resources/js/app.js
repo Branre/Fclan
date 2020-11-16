@@ -4,18 +4,19 @@ require('./bootstrap');
 
 import Vue from 'vue';
 import Router from 'vue-router';
-import Vuetify from 'vuetify';
-import Home from './views/Home'
 
+
+import Home from './views/Home'
 import Nosotros from './views/Nosotros'
 import Contacto from './views/Contacto'
+import clansShow from './views/clansShow'
 import cuatro from './views/404'
 
 import { required } from 'vuelidate/lib/validators';
 
 
 Vue.use(Router);
-Vue.use(Vuetify)
+
 
 const router = new Router({
     routes:[
@@ -32,6 +33,11 @@ const router = new Router({
             component: Contacto
         },
         {
+            path:'clan/:id',
+            name:'clans_show',
+            component:clansShow
+        },
+        {
             path:'*',
             component: cuatro
         }
@@ -41,7 +47,7 @@ const router = new Router({
 const app = new Vue({
     el: '#app',
     router:router,
-    vuetify: new Vuetify()
+
 });
 
 

@@ -54,7 +54,7 @@
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    {{ __('Ingresar') }}
                                 </button>
 
                                 @if (Route::has('password.request'))
@@ -65,6 +65,16 @@
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="#" class="btn btn-facebook">
+                        <i class="fa fa-facebook"></i>
+                        Entra con facebook
+                    </a>
+                    <a href="#" class="btn btn-google">
+                        <i class="fa fa-google"></i>
+                        Entra con Google
+                    </a>
                 </div>
             </div>
         </div>
