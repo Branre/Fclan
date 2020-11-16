@@ -12,6 +12,7 @@ body{
 	text-align: center;
 	color: #ffffff;
 	
+	
 }
 .router-link-exact-active{
 	color: #ffffff;
@@ -22,17 +23,19 @@ header nav li{
 }
 header nav li a{
 	text-decoration: none;
-	color: #333333;
+	color: #ffffff;
 	font-family: "lato", sans-serif;
 	font-weight: bold;
 }
 header nav li a:hover{
-	border-bottom: 2px solid #1abc9c;
+	border-bottom: 2px solid #78A2D2 ;
 	padding-bottom: 5px;
 }
 
 .logo img{
-	width: 150px;
+	max-width: 40%;
+  	height: auto;
+
 }
 
 
@@ -46,7 +49,7 @@ header nav li a:hover{
 	padding: 65px 100px;
 }
 .post .category{
-	background: #1abc9c;
+	background: #78A2D2;
 	padding: 5px 10px;
 	color: white;
 	position: absolute;
@@ -75,9 +78,10 @@ header nav li a:hover{
 }
 .post .tag{
 	margin: 0 5px;
+	color: #78A2D2
 }
 .post footer{
-	margin-top: 45px;
+	margin-bottom: 45px;
 	background: none;
 }
 
@@ -139,5 +143,17 @@ cite .img-cite, .cite .img-cite{
 	padding: 45px;
 	text-align: center;
 	color: #ffffff;
+	margin-bottom: 15px;
 	
 }
+.grid-item {
+	width: 464px;
+	height: 250px;
+	float: left;
+}
+
+.grid-item--height2{ height: 260px; }
+.grid-item--height3{ height: 328px; }
+.grid-item--height4{ height: 308px; }
+.grid-item--height5{ height: 240px; }
+

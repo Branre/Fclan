@@ -40,4 +40,10 @@ class User extends Authenticatable
     public function clans(){
         return $this->hasMany(Clan::class);
     }
+    public function scopeAllowed($query){
+        if(auth()->user()->hasRole('Admin')){
+            return $query;
+        }
+        return $query->where('user_id', auth()->id()); 
+    }
 }

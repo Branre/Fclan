@@ -1,6 +1,6 @@
 .container{
-	padding-right: 15px;
-  	padding-left: 15px;
+	/*padding-right: 15px;
+  	padding-left: 15px;*/
   	margin-right: auto;
   	margin-left: auto;
 }
@@ -31,7 +31,8 @@
 	padding-right: 15px;
   	padding-left: 15px;
   	margin-right: auto;
-  	margin-left: auto;
+	  margin-right: 55px;
+	  margin-top: 50px;
 }
 .container-flex{
 	display: flex;
@@ -102,7 +103,7 @@
 	color: #333333;
 }
 .c-green{
-	color: #1abc9c;
+	color: #78A2D2;
 }
 .c-white{
 	color: #fff;
@@ -118,10 +119,11 @@
 .img-responsive{
 	max-width: 100%;
 	height: auto;
-	display: block;
+	display: list-item inline;
 }
 .space-inter{
-	padding: 35px 5px;
+	padding: 5px 5px;
+	background-color: #000;
 }
 .margin-25{
 	margin:25px 0;
@@ -130,15 +132,15 @@
 	padding: 20px 0;
 }
 .active{
-	color: #bdbdbd;
+	color: #78A2D2 ;
 	border-bottom: 0 !important;
 }
 .pagination-active{
-	background: #1abc9c !important;
+	background: #78A2D2  !important;
 	color: #fff !important;
 }
 .hover{
-	border-bottom: 2px solid #1abc9c;
+	border-bottom: 2px solid #78A2D2 ;
 	padding-bottom: 5px;
 }
 

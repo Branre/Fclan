@@ -1,63 +1,53 @@
-@extends('layout')
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<title>Fclan</title>
+	<link rel="stylesheet" href="/css/normalize.css">
+	<link rel="stylesheet" href="/css/framework.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/responsive.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+	<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 
-@section('content')
-
-@if(isset($titulo))
-	<h3> {{ $titulo}}</h3>
-@endif
-
-@foreach ($clans as $clan )
-    
-	<section class="posts container">
-		<article class="post no-image">
-		@if($clan->photos->count()==1)
-			<figure><img src="{{ $clan->photos->first()->url }}" alt="" class="img-responsive"></figure>
-		@elseif($clan->photos->count()>1)				
-				<div class="gallery-photos" data-masonry='{"itemSelector": ".grid-item", "columnWidth": 564 }'>
-				@foreach ( $clan->photos as $photo)
-				<figure class="grid-item grid-item--height2">
-				<img src="{{ url($photo->url) }}" class="img-responsive" alt=""></figure>			
-				@endforeach			
-				</div>
-		@endif
-			<div class="content-post">
-				<header class="container-flex space-between">
-					<div class="date">
-						<span class="c-gray-1">{{ $clan->published_at->diffForHumans() }}</span>
-					</div>
-					<div class="tags container-flex">
-						@foreach ($clan->juego as $juego )
-						<span class="tag c-gray-1 text-capitalize">
-						<a href="{{ route('juegos.show',$juego) }}">
-						{{ $juego->nombre}}</a></span>
-						@endforeach
-					</div>
-				</header>
-				<h1>{{ $clan->titulo }}</h1>
-				<div class="divider" value="{{ $clan->descripcion }}">{{ $clan->descripcion }}</div>
-				<p>{{ $clan->extracto }}</p>
-				<footer class="container-flex space-between">
-					<div class="read-more">
-						<a href="publicacion/{{ $clan->id }}" class="text-uppercase c-green">Leer más</a>
-					</div>
-					<div class="tags container-flex">
-					@foreach ($clan->pais as $pais)
-						<span class="tag c-gray-1 text-capitalize">
-						<a href="{{ route('pais.show',$pais) }}">
-						{{ $pais->nombre}}</a></span>
-					@endforeach
-					</div>
-				</footer>
+	<style>
+		.router-link-exact-active{
+			color: #78A2D2 ;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<header class="space-inter">
+			<div class=" container-flex  space-between " >
+				<figure class="logo"><img src="img/logo.png" alt=""></figure>
+				<nav class="custom-wrapper" id="menu">
+					<div class="pure-menu"></div>
+					<ul class="container-flex list-unstyled container-fluid">
+						<li><router-link to="/" class="text-uppercase">Inicio</router-link></li>						
+						<li><router-link to="/nosotros" class="text-uppercase">Nosotros</router-link></li>
+						<li><router-link to="/contacto" class="text-uppercase">Contacto</router-link></li>
+						<li><a to="/" class="text-uppercase">Mi usuario</a></li>
+					</ul>
+				</nav>
 			</div>
-		</article>
+		</header>
+
+		<router-view></router-view>
 
 
+<section class="footer">
+	<footer>
 
-	</section><!-- fin del div.posts.container -->
-    @endforeach
-
-	{{ $clans->links() }}
+	</footer>
+</section>
 
 
+</div>
+<script src="{{mix('js/app.js') }}"> </script>
 
-@stop
+</body>
+</html>

@@ -1,36 +1,74 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-//import Vue from 'vue';
-//import Router from 'vue-router';
-//Vue.use(Router);
 
-let router = new Router({
-    routes: [
+import Vue from 'vue';
+import Router from 'vue-router';
+import Vuetify from 'vuetify';
+import Home from './views/Home'
+
+import Nosotros from './views/Nosotros'
+import Contacto from './views/Contacto'
+import cuatro from './views/404'
+
+import { required } from 'vuelidate/lib/validators';
+
+
+Vue.use(Router);
+Vue.use(Vuetify)
+
+const router = new Router({
+    routes:[
         {
             path: '/',
-            component: {
-                template: '<div>Este es el home</div>'
-            },
-            path: '/acercade',
-            component: {
-                template: '<div>Este es el home</div>'
-            }
-            
+            component: Home
+        },
+        {
+            path: '/nosotros',
+            component: Nosotros
+        },
+        {
+            path: '/contacto',
+            component: Contacto
+        },
+        {
+            path:'*',
+            component: cuatro
         }
-    ],
-    linkExactActiveClass: 'active'
-
-
+    ]
 });
-
 
 const app = new Vue({
     el: '#app',
-    router,
+    router:router,
+    vuetify: new Vuetify()
+});
+
+
+
+
+
+
+
+
+
+/*
+import { required, minLength, maxLength,between } from 'vuelidate/lib/validators'
+const app = new Vue({
+    el: '#crearUser',
     data:{
-        message:'Aprendible'
+        name:'',
+        emai:'',
+        password:'',
+        mensajesName: [
+            "El campo nombre es obligatorio",
+            "El nombre no puede ser menor a 3 caracteres",
+            "El nombre no puede ser mayor a 10 caracteres"
+        ],
+        nameValido:false
+    },
+    methods:{
+
     }
 });
+*/

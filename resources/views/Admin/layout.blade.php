@@ -242,7 +242,13 @@ desired effect
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.0.1/min/dropzone.min.js"></script>
 
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.0.1/min/dropzone.min.css"></link>
+<style>
+/*.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: #6892F2!important;
+    border-color:  #6892F2;
+}*/
 
+</style>
 @stack('dropzone')
 <script>
   $(function () {

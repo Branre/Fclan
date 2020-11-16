@@ -2,7 +2,7 @@
 @section('header')
  <h1>
         Clanes
-        <small>Crear clan</small>
+        <small>Crear/Editar clan</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="{{ route('admin') }}"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -15,7 +15,7 @@
 <div class="row">
   <div class= "box box-white">
         <div class= "box-header">
-        <h3>Crear una publicacion</h3>
+        <h3>Crear/Editar una publicacion</h3>
         </div>
         <div>
         <form method="POST" action="{{ route('admin.clans.update',$clan) }}">
@@ -26,25 +26,30 @@
             <input hidden name="id"  value="{{ Auth()->User()->id }}" readonly> </input><br>
             <div class="box-body">
               <div class="col-md-6">
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('titulo') ? 'has-error' : ''}}">
                   <label>Titulo de la publicacion:</label><br>
                   <input type="text" name="titulo" class="form-control" rows="1" value="{{ $clan->titulo }}"><br>
+                  {!! $errors->first('titulo','<span class="help-block">:message</span>') !!} 
                 </div>
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('descripcion') ? 'has-error' : ''}}">
                   <label>Descripcion:</label><br>
                   <textarea name="descripcion" class="form-control" value="{{ $clan->descripcion }}">{{ $clan->descripcion }}</textarea><br>
+                  {!! $errors->first('descripcion','<span class="help-block">:message</span>') !!}
                 </div> 
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('requisitos') ? 'has-error' : ''}}">
                   <label>Requisitos:</label><br>
                   <textarea name="requisitos" class="form-control" rows="1" >{{ $clan->descripcion }}</textarea></input><br>
+                  {!! $errors->first('requisitos','<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('edadminima') ? 'has-error' : ''}}">
                   <label>Edad minima:</label><br>
                   <input type = "number" name="edadminima" class="form-control" value="{{ $clan->edadminima }}"></input><br>
+                  {!! $errors->first('edadminima','<span class="help-block">:message</span>') !!}
                 </div>
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('edadmaxima') ? 'has-error' : ''}}">
                   <label>Edad máxima:</label><br>
                   <input type = "number" name="edadmaxima" class="form-control" value="{{ $clan->edadmaxima }}"></input><br>
+                  {!! $errors->first('edadmaxima','<span class="help-block">:message</span>') !!}
                 </div>
             
               </div>
@@ -66,9 +71,10 @@
                   </select>
                 </div>
                 
-                <div class="form-group">
+                <div class="form-group {{ $errors->has('discord') ? 'has-error' : ''}}">
                   <label>Enlace Discord:</label><br>
-                  <input type="text" name="enlacediscord" placeholder="Aqui ingresa en enlace invitacion a tu Discord" class="form-control" value="{{ $clan->discord }}"></input><br>
+                  <input type="text" name="discord" placeholder="Aqui ingresa en enlace invitacion a tu Discord" class="form-control" value="{{ $clan->discord }}"></input><br>
+                  {!! $errors->first('discord','<span class="help-block">:message</span>') !!}
                 </div>
                 <div class="form-group">
                   <label>Enlace Whatsapp:</label><br>
@@ -88,7 +94,7 @@
                 <input type = 'date'  name="published_at" placeholder="" ></input><br>--}}
         
                 
-                <button type = 'submit' class="btn btn-primary" value='PUT'>Continuar</button>
+                <button type = 'submit' class="btn btn-primary btn-block" value='PUT'>Guardar Publicacion</button>
               </div>
 
             </form>

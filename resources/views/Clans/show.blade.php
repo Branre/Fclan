@@ -1,34 +1,66 @@
+@extends('layout')
 
-@if($clan->photos->count()==1)
-			<figure><img src="{{ $clan->photos->first()->url }}" alt="" class="img-responsive"></figure>
+
+@section('content')
+<section class="posts container">
+	<article class="post">
+		@if($clan->photos->count()==1)
+		<figure><img src="{{ $clan->photos->first()->url }}" class="img-responsive"></figure>
 		@elseif($clan->photos->count()>1)				
-				<div class="gallery-photos" data-masonry='{"itemSelector": ".grid-item", "columnWidth": 564 }'>
-				@foreach ( $clan->photos as $photo)
-				<figure class="grid-item grid-item--height2">
-				<img src="{{ url($photo->url) }}" class="img-responsive" alt=""></figure>			
-				@endforeach			
+			<div class="gallery-photos" data-masonry='{"itemSelector": ".grid-item", "columnWidth": 464 }'>
+			@foreach ( $clan->photos->take(4) as $photo)
+			<figure class="grid-item grid-item--height2">
+			<img src="{{ url($photo->url) }}" class="img-responsive" alt=""></figure>			
+			@endforeach			
+			</div>
+			@endif
+		<div class="content-post">
+			<header class="container-flex space-between">
+				<div class="date">
+					<span class="c-gray-1">{{ $clan->published_at->diffForHumans() }}</span>
 				</div>
-		@endif
-<h2>{{ $clan->titulo }}</h2>
-<h5>Publicado: {{ $clan->published_at->diffForHumans() }}</h5>
-<h4>Descripcion: {{ $clan->descripcion }} </h4>
+				<div class="post-category">
+					<span class="category text-capitalize">{{ $clan->user->name }}</span>
+				</div>
+			</header>
+			<h1>{{ $clan->titulo }}</h1>
+			<div class="divider"></div>
+			<h3>Descripcion:</h3>
+			<p>{{ $clan->descripcion }}</p>
+			<div class="divider"></div>
+			<h3>Requisitos:</h3>
+			<p>{{ $clan->requisitos }}</p>
+			<div class="divider"></div>
+			<h3>Edad minima:</h3>
+			<p>{{ $clan->edadminima }}</p>
+			<h3>Edad maxima:</h3>
+			<p>{{ $clan->edadmaxima }}</p>
+			<div class="divider"></div>
+			<h3>Discord del clan:</h3>
+			<p>{{ $clan->discord }}</p>
+			@if ($clan->whatsapp!=null)
+			<h3>Whatsapp del clan:</h3>
+			<p>{{ $clan->whatsapp}}</p>
+			@endif
+			<br>
+			<div class="tags container-flex">
+				@foreach ($clan->juego as $juego )
+				<span class="tag c-gray-1 text-capitalize">
+				<a href="{{ route('juegos.show',$juego) }}">
+				{{ $juego->nombre}}</a></span>
+				@endforeach 
+			</div><br>
+			<div class="tags container-flex">
+				@foreach ($clan->pais as $pais )
+				<span class="tag c-gray-1 text-capitalize">
+				<a href="{{ route('pais.show',$pais) }}">
+				{{ $pais->nombre}}</a></span>
+				@endforeach
+			</div>		
+		</div>
+	</article>
+</section>
+	
+@endsection
 
-<h4>Requisitos:{{ $clan->requisitos }}<h4>
 
-<h4>Edad minima:{{ $clan->edadminima }}<h4>
-
-<h4>Edad maxima:{{ $clan->edadminima }}<h4>
-
-<h4>Juegos: 
-@foreach ($clan->juego as $juego )
-{{ $juego->nombre}}
-@endforeach <h4>
-
-<h4>Paises: 
-@foreach ($clan->pais as $pais )
-{{ $pais->nombre}}
-@endforeach <h4>
-
-<h4>Discord:{{ $clan->discord }}<h4>
-
-<h4>WhatsApp:{{ $clan->whatsapp}}<h4>

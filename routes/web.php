@@ -12,7 +12,7 @@
 */
 
 //Route::get('/','PagesController@home');
-Route::get('/','PagesController@home');
+Route::get('/','PagesController@spa');
 Route::get('publicacion/{clan}','ClansController@show')->name('clans.show');
 Route::get('juegos/{juego}','JuegosController@show')->name('juegos.show');
 Route::get('pais/{pais}','PaisController@show')->name('pais.show');

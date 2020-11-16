@@ -14,25 +14,22 @@
 
                         <div class="form-group">
                             <label for="nombre">Nombre</label><br>                        
-                            <input type="text" class="form-control" name="name" value="{{ $user->name }}" readonly>                       
+                            <input type="text" class="form-control" name="name" value="{{ $user->name }}">                       
                         </div>
                         <div class="form-group">
                             <label for="email">E-mail</label><br>
-                            <input type="email" class="form-control" name="email" value="{{ $user->email }}" readonly>
+                            <input type="email" class="form-control" name="email" value="{{ $user->email }}">
                         </div>
-                        @hasrole('Admin')
-                        @else
                         <div class="form-group">
-                            <label for="">Contraseña</label>
-                            <input type="password" class="form-control" name="password" id="" placeholder="">
-                          </div>
-                          <div class="form-group">
-                            <label for="">Confirmar Contraseña:</label>
-                            <input type="password" class="form-control" name="password_confirmation" id="" placeholder="">
-                          </div> 
-                          
-                          <button  class="btn btn-primary btn-block">Actualizar datos</button>
-                        @endhasrole                       
+                          <label for="">Contraseña</label>
+                          <input type="password" class="form-control" name="password" id="" placeholder="">
+                        </div>
+                        <div class="form-group">
+                          <label for="">Confirmar Contraseña:</label>
+                          <input type="password" class="form-control" name="password_confirmation" id="" placeholder="">
+                        </div> 
+                        
+                        <button  class="btn btn-primary btn-block">Actualizar datos</button>
                     </form>
                     
                 </div>

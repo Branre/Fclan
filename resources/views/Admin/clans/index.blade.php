@@ -15,7 +15,11 @@
 @section('content')
   <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table With Full Features</h3>
+              <h3 class="box-title">Publicaciones de Clanes Creadas</h3>
+              
+            </div>
+            <div class="form-gruop">
+              <a href="{{ route('admin.clans.create') }}" class="btn btn-primary float-right">Crear Clan</a>
             </div>
             <!-- /.box-header -->
             <div class="box-body">

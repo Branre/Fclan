@@ -25,7 +25,6 @@ class ClanPolicy
      */
     public function view(User $user, Clan $clan)
     {
-        //
         return $user->id ===$clan->user_id;
     }
 
@@ -37,7 +36,6 @@ class ClanPolicy
      */
     public function create(User $user)
     {
-        //
         return true;
     }
 

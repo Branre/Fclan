@@ -1,15 +1,9 @@
+<template>
 
-  
-@extends('layout')
-
-@section('content')
-
-
-
-@foreach ($clans as $clan)
-	<section class="posts container">
+        <section class="posts container">
 		<article class="post">
-			@if($clan->photos->count()==1)
+            
+			<!--@if($clan->photos->count()==1)
 			<figure><img src="{{ $clan->photos->first()->url }}" class="img-responsive"></figure>
 			@elseif($clan->photos->count()>1)
 				
@@ -21,9 +15,10 @@
 				<img src="{{ url($photo->url) }}" class="img-responsive" alt=""></figure>			
 				@endforeach			
 				</div>
-			@endif
+			@endif -->
 			<div class="content-post">
-				<header class="container-flex space-between">
+				home2
+				<!--<header class="container-flex space-between">
 					<div class="date">
 						<span class="c-gray-1">{{ $clan->published_at->diffForHumans() }}</span>
 					</div>
@@ -31,16 +26,16 @@
 						<span class="category text-capitalize">{{ $clan->user->name }}</span>
 					</div>
 				</header>
-				<h1>{{ $clan->titulo }}</h1>
+				<h1>{{ $clan->titulo }}</h1>-->
 				<div class="divider"></div>
-				<p>{{ $clan->descripcion }}</p>
+				<!-- <p>$clan->descripcion</p>-->
 				<footer class="container-flex space-between">
-					<div class="read-more">
+					<!--<div class="read-more">
 						<a href="{{ route('clans.show',$clan) }}" class="text-uppercase c-green">Ver mas</a>
-					</div>							
+					</div>-->							
 				</footer>
 				<br>
-				<div class="tags container-flex">
+				<!--<div class="tags container-flex">
 					@foreach ($clan->juego as $juego )
 					<span class="tag c-gray-1 text-capitalize">
 					<a href="{{ route('juegos.show',$juego) }}">
@@ -53,12 +48,9 @@
 					<a href="{{ route('pais.show',$pais) }}">
 					{{ $pais->nombre}}</a></span>
 					@endforeach
-				</div>		
+				</div>		-->
 			</div>
 		</article>
 	</section>
-@endforeach
 
-{{ $clans->links('vendor.pagination.default') }}
-
-@stop
+</template>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -16,7 +17,7 @@ class UsersController extends Controller
     public function index()
     {
         //
-        $users = User::get();
+        $users = User::allowed()->get();
 
         return view ('admin.users.index',compact('users'));
     }
@@ -28,7 +29,10 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        if(auth()->user()->hasRole('Admin')){
+            return view('Admin.users.create');
+        }
+        
     }
 
     /**
@@ -37,9 +41,22 @@ class UsersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request,User $user)
     {
-        //
+
+        
+        $role = $request->get('admin');
+        if($role == "true")
+        {
+           $user->assignRole('Admin');
+        }
+        $user->name= $request->get('name');
+        $user->email= $request->get('email');
+        $passwordAux=$request->get('password');
+        $user->password=bcrypt($passwordAux);   
+        $user->save();
+
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -50,6 +67,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view',$user); 
         return view('admin.users.show',compact('user'));
     }
 
@@ -59,9 +77,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+       // $this->authorize('edit',$user);  
+        $this->authorize('update',$user);  
+        return view('Admin.users.edit',compact('user'));
     }
 
     /**
@@ -71,9 +91,29 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+
+        
+        $this->validate($request,
+        ['name'=>'required',
+        'email'=>'required',
+        'password'=>'required',
+        'password_confirmation'=>'required'
+    ]);
+       
+        $user->name= $request->get('name');
+        $user->email= $request->get('email');
+        $passwordAux=$request->get('password');
+        $passwordAux2=$request->get('password_confirmation');
+        if($passwordAux==$passwordAux2){
+            $user->password=bcrypt($passwordAux);
+            $user->save();
+            return redirect()->route('admin');
+        }   
+        return $errors;
+
+        
     }
 
     /**
@@ -82,8 +122,12 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $this->authorize('edit',$user);
+        $user->delete();
+
+        return view('admin.users.show',compact('user'));
+
     }
 }

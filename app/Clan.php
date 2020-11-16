@@ -11,6 +11,8 @@ class Clan extends Model
     
     protected $dates = ['published_at'];
 
+    protected $appends =['published_date','owner','game','country','image'];
+
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -30,5 +32,20 @@ class Clan extends Model
             return $query;
         }
         return $query->where('user_id', auth()->id()); 
+    }
+    public function getPublishedDateAttribute(){
+        return optional($this->created_at)->diffForHumans();
+    }
+    public function getOwnerAttribute(){
+        return $this->user;
+    }
+    public function getGameAttribute(){
+        return $this->juego;
+    }
+    public function getCountryAttribute(){
+        return $this->pais;
+    }
+    public function getImageAttribute(){
+        return $this->photos;
     }
 }

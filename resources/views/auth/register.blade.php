@@ -75,3 +75,4 @@
     </div>
 </div>
 @endsection
+<link href="{{ asset('css/app.css') }}" rel="stylesheet">

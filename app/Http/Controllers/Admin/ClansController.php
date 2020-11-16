@@ -30,7 +30,7 @@ class ClansController extends Controller
     }
     public function store(Request $request)
     {
-        /*
+        
         $this->validate($request,
         ['titulo'=>'required',
         'descripcion'=>'required',
@@ -38,7 +38,7 @@ class ClansController extends Controller
         'edadminima'=>'required',
         'edadmaxima'=>'required',
         'discord'=>'required',
-    ]);*/
+        ]);
 
         $clan = new Clan;
         $clan->user_id= $request->get('id');
@@ -47,7 +47,7 @@ class ClansController extends Controller
         $clan->requisitos= $request->get('requisitos');
         $clan->edadminima= $request->get('edadminima');
         $clan->edadmaxima= $request->get('edadmaxima');
-        $clan->discord= $request->get('enlacediscord');
+        $clan->discord= $request->get('discord');
         $clan->whatsapp= $request->get('enlacewhatsapp');
         $clan->published_at=Carbon::parse($request->get('created_at'));
         $clan->save();
@@ -64,14 +64,14 @@ class ClansController extends Controller
       //      $this->authorize('view',$clan);  
       //  }     
         
-        $this->authorize('view',$clan);  
+        $this->authorize('update',$clan);  
         $juegos = Juego::all();
         $pais = Pais::all();
         return view('Admin.clans.edit',compact(['juegos','pais','clan']));
     }
     public function update(Clan $clan, Request $request){
         
-    /*    $this->validate($request,
+        $this->validate($request,
         ['titulo'=>'required',
         'descripcion'=>'required',
         'requisitos'=>'required',
@@ -79,14 +79,7 @@ class ClansController extends Controller
         'edadmaxima'=>'required',
         'discord'=>'required',
     ]);
-    */
     
-  //  if(auth()->user()->id != 1){
-    //    $this->authorize('update',$clan);  
-    //}  
-     
-
-
         $clan->user_id= $request->get('id');
         $clan->titulo= $request->get('titulo');
         $clan->descripcion= $request->get('descripcion');
@@ -105,11 +98,9 @@ class ClansController extends Controller
     }
     public function destroy(Clan $clan){
 
-        if(auth()->user()->id != 1){
-            $this->authorize('delete',$clan);  
-        }  
-        
-       
+
+        $this->authorize('delete',$clan);  
+
         $clan->juego()->detach();
         
         $clan->pais()->detach();

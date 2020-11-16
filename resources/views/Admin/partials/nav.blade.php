@@ -4,30 +4,36 @@
         <li {{ request()->is('admin') ? 'class=active' : ''}}>
         <a href="/"><i class="fa fa-link"></i> 
         <span>Inicio</span></a></li>
-        <li class="treeview">
-          <a href="#"><i class="fa fa-link"></i> <span>Clanes</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-        </span>
-          </a>
-          <ul class="treeview-menu {{ request()->is('admin/clans*') ? 'active' : ''}}">
-            <li {{ request()->is('admin/clans') ? 'class=active' : ''}}><a href="{{ route('admin.clans.index') }}">Ver todos los clanes</a></li>
-            <li {{ request()->is('admin/clans/create') ? 'active' : ''}}><a href="{{ route('admin.clans.create') }}">Crear clan</a></li>
-          </ul>
+        <li>
+            <a href="{{ route('admin.clans.index') }}"><i class="fa fa-link"></i> 
+            <span>Clanes</span></a> 
         </li>
-        <li {{ request()->is('admin') ? 'class=active' : ''}}>
+        <li>
+          @hasrole('Admin')
+            <a href="{{ route('admin.users.index') }}"><i class="fa fa-link"></i> 
+            <span>Usuarios</span></a>
+            <a href="{{ route('admin.users.show',Auth::user()) }}"><i class="fa fa-link"></i> 
+            <span>Usuario</span></a>  
+          @else
+            <a href="{{ route('admin.users.show',Auth::user()) }}"><i class="fa fa-link"></i> 
+            <span>Usuario</span></a> 
+          @endhasrole
+          
+      </li>
+        <li class="treeview">
           <form method="POST" action="{{ route('logout') }}">
             {{csrf_field()}}
-            
             {{-- <button href="#" class="btn btn-default btn-flat">Cerrar sesion</button> --}}
             <a href="#" onclick="parentNode.submit();"><i class="fa fa-link"></i> 
-            <span>Salir</span></a>
-            <input type="hidden" name="salir" value=Salir/>
+            <span>Salir</span>
+            <input type="hidden" name="salir" value=Salir/></a>
             {{-- <a href="javascript:;" onclick="parentNode.submit();"><%=n%></a>
             <input type="hidden" name="mess" value=<%=n%>/>--}}
-       
           </form>
         </li>
+
+      
+
           
         
       </li>

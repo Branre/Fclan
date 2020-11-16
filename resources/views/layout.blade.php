@@ -15,19 +15,26 @@
 </head>
 <body>
 	<div id="app">
-		<section class="header">
-			<header>
-				<a href="">Inicio</a> 
-				<a href="">Acerca de</a> 
-				<a href="">Mi usuario</a> 
-			</header>
-		</section>
+		<header class="space-inter">
+			<div class=" container-flex  space-between " >
+				<figure class="logo"><img src="img/logo.png" alt=""></figure>
+				<nav class="custom-wrapper" id="menu">
+					<div class="pure-menu"></div>
+					<ul class="container-flex list-unstyled container-fluid">
+						<li><a href="index.html" class="text-uppercase">Inicio</a></li>
+						<li><a href="about.html" class="text-uppercase">Mi usuario</a></li>
+						<li><a href="archive.html" class="text-uppercase">Nosotros</a></li>
+						<li><a href="archive.html" class="text-uppercase">Contacto</a></li>
+					</ul>
+				</nav>
+			</div>
+		</header>
 
 
 @yield('content')
 
 		<section class="footer">
-			<footer>}
+			<footer>
 
 			</footer>
 		</section>
